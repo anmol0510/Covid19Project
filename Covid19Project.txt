@@ -1,0 +1,212 @@
+22-03-2022-
+===========
+First, I import that csv.file in postgres database-
+---------------------------------------------------
+using copy command import that csv file.
+
+postgres=# \c projectatcs;     //this is my database name
+You are now connected to database "projectatcs" as user "postgres".
+projectatcs=# \dt       
+            List of relations
+ Schema |     Name     | Type  |  Owner
+--------+--------------+-------+----------
+ public | covidproject | table | postgres   //My table name covidproject
+(1 row)
+projectatcs=# \d covidproject
+                           Table "public.covidproject"
+         Column          |         Type          | Collation | Nullable | Default      
+-------------------------+-----------------------+-----------+----------+---------    //columns which I added in this 
+ continent               | character varying(20) |           |          |
+ location                | character varying(40) |           |          |
+ total_cases             | integer               |           |          |
+ new_cases               | integer               |           |          |
+ total_deaths            | integer               |           |          |
+ total_tests             | integer               |           |          |
+ positive_rate           | double precision      |           |          |
+ people_fully_vaccinated | bigint                |           |          |
+ population              | bigint                |           |          |
+
+projectatcs=# select * from covidproject;  //This is my table values   
+    continent   |             location             | total_cases | new_cases | total_deaths | total_tests | positive_rate | people_fully_vaccinated | population
+---------------+----------------------------------+-------------+-----------+--------------+-------------+---------------+-------------------------+------------
+ Asia          | Afghanistan                      |      177093 |        54 |         7654 |             |               |                 4402868 |   39835428
+               | Africa                           |    11460017 |      1383 |       251180 |             |               |               204116305 | 1373486472
+ Europe        | Albania                          |      273088 |        48 |         3487 |     1595977 |           0.1 |                 1209791 |    2872934
+ Africa        | Algeria                          |      265550 |        11 |         6871 |      230553 |               |                 6110712 |   44616626
+ Europe        | Andorra                          |       39234 |       440 |          153 |             |               |                         |      77354
+ Africa        | Angola                           |       99003 |         0 |         1900 |     1460619 |         0.005 |                 5699666 |   33933611
+ North America | Anguilla                         |        2595 |         0 |            9 |             |               |                    9603 |      15125
+ North America | Antigua and Barbuda              |        7473 |         0 |          135 |             |               |                   61550 |      98728
+ South America | Argentina                        |     9007753 |      1227 |       127494 |    34718663 |         0.052 |                36515407 |   45605823
+ Asia          | Armenia                          |      422307 |        21 |         8595 |     2937565 |         0.035 |                         |    2968128
+ North America | Aruba                            |       33843 |         0 |          212 |             |               |                   80770 |     107195
+               | Asia                             |   132993357 |    523980 |      1389465 |             |               |              3095373357 | 4678444992
+ Oceania       | Australia                        |     3943368 |     43230 |         5736 |    64710352 |         0.361 |                20952845 |   25788217
+ Europe        | Austria                          |     3466203 |     37192 |        15409 |   166723590 |         0.076 |                 6586015 |    9043072
+ Asia          | Azerbaijan                       |      791482 |        78 |         9656 |     6635319 |         0.045 |                 4814484 |   10223344
+ North America | Bahamas                          |       33221 |        10 |          787 |      224033 |         0.017 |                  155555 |     396914
+ Asia          | Bahrain                          |      544851 |      1016 |         1465 |     9503419 |           0.2 |                 1215156 |    1748295
+ Asia          | Bangladesh                       |     1950609 |        82 |        29117 |    13652759 |         0.019 |                91743096 |  166303494
+ North America | Barbados                         |       57733 |        73 |          329 |      597763 |         0.144 |                  150645 |     287708
+ Europe        | Belarus                          |      951081 |      1087 |         6722 |    12646405 |         0.117 |                         |    9442867
+ Europe        | Belgium                          |     3707561 |     11502 |        30529 |    32110333 |          0.24 |                 9119758 |   11632334
+ North America | Belize                           |       57143 |         0 |          654 |      510065 |         0.028 |                  208577 |     404915
+ Africa        | Benin                            |       26952 |       377 |          163 |             |               |                 2214327 |   12451031
+ North America | Bermuda                          |       12094 |       105 |          126 |             |               |                   46439 |      62092
+ Asia          | Bhutan                           |       22004 |       344 |            9 |             |               |                  577321 |     779900
+ South America | Bolivia                          |      899697 |       173 |        21482 |     3915409 |         0.052 |                 5694373 |   11832936
+ North America | Bonaire Sint Eustatius and Saba  |        7739 |         0 |           31 |             |               |                         |      26445
+ Europe        | Bosnia and Herzegovina           |      373985 |       186 |        15664 |             |               |                         |    3263459
+ Africa        | Botswana                         |      263950 |         0 |         2619 |     2208626 |             0 |                 1263041 |    2397240
+ South America | Brazil                           |    29637814 |     13379 |       657495 |    70923215 |               |               158863543 |  213993441
+ North America | British Virgin Islands           |        6104 |         0 |           62 |             |               |                   17459 |      30423
+ Asia          | Brunei                           |      124716 |      1294 |          189 |             |               |                  404788 |     441532
+ Europe        | Bulgaria                         |     1124186 |       472 |        36282 |     9367761 |         0.116 |                 2056814 |    6896655
+ Africa        | Burkina Faso                     |       20813 |         0 |          379 |      324773 |             0 |                 1175380 |   21497097
+ Africa        | Burundi                          |       38308 |         0 |           38 |     1428892 |         0.006 |                    9827 |   12255429
+ Asia          | Cambodia                         |      134986 |        97 |         3051 |     2898913 |         0.073 |                13892556 |   16946446
+ Africa        | Cameroon                         |      119544 |       130 |         1927 |     2507964 |               |                  813530 |   27224262
+-- More  --
+
+Index.jsp-
+----------
+<html>
+<body>
+
+<form action = "virus">
+
+Press Button to execute query:
+<br><br>
+<input type = "submit"/>
+<br>
+
+</form>
+</body>
+</html>
+
+ControllerPro.java-
+-------------------
+package com.cap.covid19;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+@Controller
+public class ControllerPro {
+	
+	
+	
+	@RequestMapping("/virus")
+	public ModelAndView add(HttpServletRequest request,HttpServletResponse response) throws ClassNotFoundException, SQLException {
+		Class.forName("org.postgresql.Driver");
+		Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost/projectatcs","postgres","12345@");
+		PreparedStatement stmt=conn.prepareStatement("select location,new_cases from covidproject where new_cases>1000");
+
+		
+
+		
+		ResultSet result=stmt.executeQuery();
+	      
+
+	    	
+	     
+		
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("display.jsp");
+		mv.addObject("i",result);
+		return mv;
+		
+}
+}
+
+display.jsp-
+-----------
+<%@ page import="java.sql.*" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" isELIgnored="false"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<%
+
+ResultSet rs = (ResultSet) request.getAttribute("i");
+%>
+
+<TABLE BORDER="1">
+            <TR>
+                <TH>Location</TH>
+                <TH>Total_Cases</TH>
+            </TR>
+             <% while(rs.next()){ %>
+            <TR>
+                <TD> <%= rs.getString(1) %></td>
+                <TD> <%= rs.getString(2) %></TD>
+            </TR>
+            <% } %>
+        </TABLE>
+</body>
+</html>
+
+web.xml-
+--------
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+    <servlet>
+  		<servlet-name>addition</servlet-name>
+  		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  		<servlet-name>addition</servlet-name>
+  		<url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+addition-servlet.xml-
+---------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xmlns:ctx="http://www.springframework.org/schema/context" 
+    xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context  
+        http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/mvc  
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">  
+  
+
+    <!-- Provide support for component scanning -->  
+    <ctx:annotation-config></ctx:annotation-config>
+    <context:component-scan base-package="com.cap.covid19"></context:component-scan>  
+  
+    <!--Provide support for conversion, formatting and validation -->  
+    <mvc:annotation-driven/>  
+  
+</beans>
+
+
